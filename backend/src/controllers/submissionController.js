@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs').promises;
-const { Submission, Assignment, Course, Notification } = require('../models');
+const { Submission, Assignment, Course, Notification, User } = require('../models');
 
 exports.submitAssignment = async (req, res) => {
   try {

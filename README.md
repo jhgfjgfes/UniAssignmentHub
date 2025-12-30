@@ -88,6 +88,31 @@ npm run dev
 前端应用将在 http://localhost:3000 运行
 Frontend application will run on http://localhost:3000
 
+### 快速开始（推荐）/ Quick Start (Recommended)
+
+或者使用提供的快速启动脚本 / Or use the provided quick start script:
+
+```bash
+./start.sh
+```
+
+这将自动安装依赖并启动前后端服务器 / This will automatically install dependencies and start both servers.
+
+### 创建演示数据 / Create Demo Data
+
+启动服务器后，可以运行演示数据脚本快速体验系统功能：
+After starting the servers, you can run the demo data script to quickly experience the system:
+
+```bash
+./create-demo-data.sh
+```
+
+这将创建 / This will create:
+- 1个教师账号 / 1 teacher account (demo_teacher / teacher123)
+- 2个学生账号 / 2 student accounts (demo_student1, demo_student2 / student123)
+- 2门课程 / 2 courses
+- 3个作业（带自动通知）/ 3 assignments (with auto-notifications)
+
 ## 使用说明 / Usage
 
 ### 首次使用 / First Time Use
@@ -97,6 +122,10 @@ Frontend application will run on http://localhost:3000
 3. 选择角色（学生或教师）/ Select role (Student or Teacher)
 4. 填写注册信息 / Fill in registration information
 5. 登录系统 / Login to the system
+
+**或使用演示账号 / Or use demo accounts:**
+- 教师 / Teacher: `demo_teacher` / `teacher123`
+- 学生 / Student: `demo_student1` / `student123`
 
 ### 学生使用流程 / Student Workflow
 
@@ -214,11 +243,38 @@ UniAssignmentHub/
 - [x] 作业批改和评分 / Assignment grading
 - [x] 班级管理 / Class management
 - [x] 教学资料上传 / Teaching materials upload
+- [ ] 速率限制（Rate limiting） / API rate limiting for security
 - [ ] 实时通知（WebSocket）/ Real-time notifications (WebSocket)
 - [ ] 作业在线批注 / Online assignment annotation
 - [ ] 数据分析和报表 / Data analytics and reports
 - [ ] 移动端适配 / Mobile responsiveness
 - [ ] 多语言支持增强 / Enhanced multilingual support
+
+## 安全说明 / Security Notes
+
+⚠️ **Important for Production Use / 生产环境重要提示:**
+
+This is a demonstration/development version. Before deploying to production, please implement the following security enhancements:
+
+这是演示/开发版本。在部署到生产环境之前，请实施以下安全增强：
+
+1. **Rate Limiting**: Add rate limiting middleware to all API endpoints to prevent abuse and brute force attacks.
+   添加速率限制中间件到所有API端点以防止滥用和暴力攻击。
+
+2. **Environment Variables**: Change default JWT secret and use strong, randomly generated secrets.
+   更改默认JWT密钥并使用强随机生成的密钥。
+
+3. **HTTPS**: Use HTTPS in production for secure communication.
+   生产环境使用HTTPS进行安全通信。
+
+4. **Input Validation**: Add comprehensive input validation and sanitization.
+   添加全面的输入验证和清理。
+
+5. **Database**: Consider using PostgreSQL or MySQL instead of SQLite for production.
+   生产环境考虑使用PostgreSQL或MySQL而不是SQLite。
+
+6. **File Storage**: Consider using cloud storage (S3, etc.) for file uploads in production.
+   生产环境考虑使用云存储（S3等）处理文件上传。
 
 ## 许可证 / License
 
