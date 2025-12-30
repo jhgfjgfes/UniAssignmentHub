@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs').promises;
-const { Material, Class } = require('../models');
+const { Material, Class, User, ClassMembership } = require('../models');
 
 exports.uploadMaterial = async (req, res) => {
   try {
