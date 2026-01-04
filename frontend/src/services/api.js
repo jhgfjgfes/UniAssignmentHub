@@ -84,7 +84,10 @@ export const classAPI = {
   join: (classId) => api.post('/classes/join', { classId }),
   leave: (classId) => api.delete(`/classes/${classId}/leave`),
   getMembers: (id) => api.get(`/classes/${id}/members`),
-  addStudent: (id, studentId) => api.post(`/classes/${id}/students`, { studentId }),
+  addStudent: (id, data) => api.post(`/classes/${id}/students`, data),
+  importStudents: (id, formData) => api.post(`/classes/${id}/students/import`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  }),
   removeStudent: (id, studentId) => api.delete(`/classes/${id}/students/${studentId}`)
 };
 

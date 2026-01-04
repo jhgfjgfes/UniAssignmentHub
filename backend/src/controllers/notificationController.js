@@ -65,6 +65,8 @@ exports.getUnreadCount = async (req, res) => {
     res.json({ count });
   } catch (error) {
     console.error('Get unread count error:', error);
+    const fs = require('fs');
+    fs.appendFileSync('error.log', `Get unread count error: ${error.message}\n${error.stack}\n`);
     res.status(500).json({ error: 'Failed to get unread count' });
   }
 };

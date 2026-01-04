@@ -1,4 +1,6 @@
 const { Class, User, ClassMembership, Material } = require('../models');
+const xlsx = require('xlsx');
+const fs = require('fs').promises;
 
 exports.createClass = async (req, res) => {
   try {
@@ -135,7 +137,7 @@ exports.deleteClass = async (req, res) => {
 
 exports.addStudent = async (req, res) => {
   try {
-    const { studentId } = req.body;
+    const { studentId, email, username } = req.body;
     const classId = req.params.id;
 
     const classItem = await Class.findByPk(classId);
@@ -147,13 +149,27 @@ exports.addStudent = async (req, res) => {
       return res.status(403).json({ error: 'Not authorized to add students to this class' });
     }
 
-    const student = await User.findByPk(studentId);
-    if (!student || student.role !== 'student') {
+    let student;
+    if (studentId) {
+      student = await User.findByPk(studentId);
+    } else if (email) {
+      student = await User.findOne({ where: { email } });
+    } else if (username) {
+      student = await User.findOne({ where: { username } });
+    } else {
+      return res.status(400).json({ error: 'Student ID, email or username is required' });
+    }
+
+    if (!student) {
       return res.status(404).json({ error: 'Student not found' });
     }
 
+    if (student.role !== 'student') {
+      return res.status(400).json({ error: 'User is not a student' });
+    }
+
     const existingMembership = await ClassMembership.findOne({
-      where: { studentId, classId }
+      where: { studentId: student.id, classId }
     });
 
     if (existingMembership) {
@@ -161,7 +177,7 @@ exports.addStudent = async (req, res) => {
     }
 
     const membership = await ClassMembership.create({
-      studentId,
+      studentId: student.id,
       classId
     });
 
@@ -295,5 +311,89 @@ exports.getAllClasses = async (req, res) => {
   } catch (error) {
     console.error('Get all classes error:', error);
     res.status(500).json({ error: 'Failed to get classes' });
+  }
+};
+
+exports.importStudents = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+
+    const classId = req.params.id;
+    const classItem = await Class.findByPk(classId);
+    
+    if (!classItem) {
+      await fs.unlink(req.file.path);
+      return res.status(404).json({ error: 'Class not found' });
+    }
+
+    if (classItem.teacherId !== req.user.id) {
+      await fs.unlink(req.file.path);
+      return res.status(403).json({ error: 'Not authorized' });
+    }
+
+    const workbook = xlsx.readFile(req.file.path);
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const data = xlsx.utils.sheet_to_json(sheet);
+
+    const results = {
+      success: 0,
+      failed: 0,
+      errors: []
+    };
+
+    for (const row of data) {
+      // Support multiple column names
+      const username = row['学号'] || row['Student ID'] || row['username'] || row['Username'];
+      const name = row['姓名'] || row['Name'] || row['name'];
+
+      if (!username) {
+        results.failed++;
+        results.errors.push({ row, error: 'Missing username/学号' });
+        continue;
+      }
+
+      const student = await User.findOne({ where: { username } });
+
+      if (!student) {
+        results.failed++;
+        results.errors.push({ username, name, error: 'User not found' });
+        continue;
+      }
+
+      if (student.role !== 'student') {
+        results.failed++;
+        results.errors.push({ username, name, error: 'User is not a student' });
+        continue;
+      }
+
+      const existing = await ClassMembership.findOne({
+        where: { studentId: student.id, classId }
+      });
+
+      if (existing) {
+        results.failed++;
+        results.errors.push({ username, name, error: 'Already in class' });
+        continue;
+      }
+
+      await ClassMembership.create({
+        studentId: student.id,
+        classId
+      });
+      results.success++;
+    }
+
+    // Clean up file
+    await fs.unlink(req.file.path).catch(() => {});
+
+    res.json({ message: 'Import completed', results });
+
+  } catch (error) {
+    console.error('Import students error:', error);
+    if (req.file) await fs.unlink(req.file.path).catch(() => {});
+    res.status(500).json({ error: 'Failed to import students' });
   }
 };
