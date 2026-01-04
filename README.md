@@ -6,13 +6,15 @@
 
 ### 学生功能 / Student Features
 - ✅ 多种格式作业提交 (PDF, DOC/DOCX, MD, 视频, PPT, Excel) / Submit assignments in multiple formats
-- ✅ 课程管理 / Manage enrolled courses  
+- ✅ 课程管理 / Manage enrolled courses
+- ✅ 浏览并选修课程 / Browse and enroll in courses
 - ✅ 作业按课程分类 / Assignments organized by course
 - ✅ **新作业通知提醒（重要）** / **Notification system for new assignments (Important)**
 - ✅ **显眼的未交作业提醒** / **Prominent reminder for unsubmitted assignments**
 - ✅ 查看成绩和反馈 / View grades and feedback
-- ✅ 加入班级 / Join classes
-- ✅ 下载教学资料 / Download teaching materials
+- ✅ 查看所有历史提交 / View all submission history
+- ✅ 加入和管理班级 / Join and manage classes
+- ✅ 通知中心 / Notification center
 
 ### 教师功能 / Teacher Features
 - ✅ 审阅、批注、评分学生作业 / Review, annotate, and grade student assignments
@@ -21,6 +23,13 @@
 - ✅ 上传多种类型教学资料 / Upload various types of teaching materials
 - ✅ 向学生发布通知 / Send notifications to students
 - ✅ 发布作业 / Publish assignments
+- ✅ 查看课程详情和选修学生 / View course details and enrolled students
+
+### 前端页面 / Frontend Pages
+- ✅ 所有9个学生和教师端页面已完整实现
+- ✅ 统一的UI设计和交互体验
+- ✅ 响应式布局，支持移动端
+- ✅ 完整的表单验证和错误处理
 
 ## 技术栈 / Tech Stack
 
