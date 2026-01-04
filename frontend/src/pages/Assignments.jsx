@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { assignmentAPI, courseAPI, submissionAPI } from '../services/api';
 
 const Assignments = () => {
   const { user } = useAuth();
+  const location = useLocation();
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState('');
   const [assignments, setAssignments] = useState([]);
@@ -25,7 +27,13 @@ const Assignments = () => {
     try {
       const response = await courseAPI.getMyCourses();
       setCourses(response.data);
-      if (response.data.length > 0) {
+      
+      const queryParams = new URLSearchParams(location.search);
+      const courseIdFromQuery = queryParams.get('courseId');
+
+      if (courseIdFromQuery) {
+        setSelectedCourse(courseIdFromQuery);
+      } else if (response.data.length > 0) {
         setSelectedCourse(response.data[0].id);
       }
     } catch (error) {
