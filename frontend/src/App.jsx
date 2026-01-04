@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import StudentDashboard from './pages/StudentDashboard';
 import TeacherDashboard from './pages/TeacherDashboard';
 import Courses from './pages/Courses';
+import CreateCourse from './pages/CreateCourse';
 import Assignments from './pages/Assignments';
 import './App.css';
 
@@ -40,7 +41,7 @@ const AppContent = () => {
         <Route path="/classes" element={<PrivateRoute><div className="container"><h1>班级 / Classes</h1><div className="card"><p>功能开发中 / Feature in development</p></div></div></PrivateRoute>} />
         <Route path="/notifications" element={<PrivateRoute><div className="container"><h1>通知 / Notifications</h1><div className="card"><p>功能开发中 / Feature in development</p></div></div></PrivateRoute>} />
         <Route path="/browse-courses" element={<PrivateRoute><div className="container"><h1>选课 / Browse Courses</h1><div className="card"><p>功能开发中 / Feature in development</p></div></div></PrivateRoute>} />
-        <Route path="/create-course" element={<PrivateRoute><div className="container"><h1>创建课程 / Create Course</h1><div className="card"><p>功能开发中 / Feature in development</p></div></div></PrivateRoute>} />
+        <Route path="/create-course" element={<PrivateRoute><CreateCourse /></PrivateRoute>} />
         <Route path="/create-class" element={<PrivateRoute><div className="container"><h1>创建班级 / Create Class</h1><div className="card"><p>功能开发中 / Feature in development</p></div></div></PrivateRoute>} />
         <Route path="/submissions" element={<PrivateRoute><div className="container"><h1>我的提交 / My Submissions</h1><div className="card"><p>功能开发中 / Feature in development</p></div></div></PrivateRoute>} />
         <Route path="/course/:id" element={<PrivateRoute><div className="container"><h1>课程详情 / Course Details</h1><div className="card"><p>功能开发中 / Feature in development</p></div></div></PrivateRoute>} />
