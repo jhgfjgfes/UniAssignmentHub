@@ -14,6 +14,7 @@
 - ✅ 查看成绩和反馈 / View grades and feedback
 - ✅ 查看所有历史提交 / View all submission history
 - ✅ 加入和管理班级 / Join and manage classes
+- ✅ 查看和下载教学资料 / View and download teaching materials
 - ✅ 通知中心 / Notification center
 
 ### 教师功能 / Teacher Features

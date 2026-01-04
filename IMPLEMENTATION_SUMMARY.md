@@ -22,6 +22,7 @@ This document summarizes the implementation of all frontend pages in the UniAssi
 | 我的提交 / My Submissions | `/submissions` | 查看历史提交、成绩、反馈 | ✅ 新实现 |
 | 班级列表 / My Classes | `/classes` | 查看已加入班级、加入新班级 | ✅ 新实现 |
 | 班级详情 / Class Detail | `/class/:id` | 查看班级信息、成员、退出班级 | ✅ 新实现 |
+| 教学资料 / Teaching Materials | `/class/:id/materials` | 查看和下载教学资料 | ✅ 新实现 |
 | 通知中心 / Notifications | `/notifications` | 查看通知、筛选、标记已读 | ✅ 新实现 |
 
 ### 教师端页面 / Teacher Pages
@@ -36,6 +37,7 @@ This document summarizes the implementation of all frontend pages in the UniAssi
 | 班级列表 / My Classes | `/classes` | 管理创建的班级 | ✅ 新实现 |
 | 创建班级 / Create Class | `/create-class` | 创建新班级表单 | ✅ 新实现 |
 | 班级详情 / Class Detail | `/class/:id` | 班级信息、成员管理 | ✅ 新实现 |
+| 教学资料 / Teaching Materials | `/class/:id/materials` | 上传和管理教学资料 | ✅ 新实现 |
 | 通知中心 / Notifications | `/notifications` | 查看通知 | ✅ 新实现 |
 
 ---
@@ -171,7 +173,7 @@ This document summarizes the implementation of all frontend pages in the UniAssi
 
 ---
 
-### 9. 班级详情页面 (`/class/:id`)
+### 8. 班级详情页面 (`/class/:id`)
 
 **功能特点 / Features:**
 - 显示班级基本信息（名称、代码、描述）
@@ -179,11 +181,36 @@ This document summarizes the implementation of all frontend pages in the UniAssi
 - 显示班级成员列表（可展开/折叠）
 - 学生端：退出班级功能
 - 教师端：删除班级功能
+- 查看教学资料按钮
 
 **技术实现 / Technical Details:**
 - 调用 `classAPI.getOne()` 和 `classAPI.getMembers()`
 - 条件渲染（成员列表）
 - 确认对话框
+
+---
+
+### 9. 教学资料页面 (`/class/:id/materials`)
+
+**功能特点 / Features:**
+- 显示班级所有教学资料
+- 文件类型图标显示（PDF、Word、PPT、图片、视频等）
+- 文件大小格式化显示
+- 上传资料（教师）
+- 下载资料（学生和教师）
+- 删除资料（教师）
+- 显示上传者和上传时间
+- 模态框上传界面
+- 文件大小验证（最大100MB）
+- 支持多种文件类型
+
+**技术实现 / Technical Details:**
+- 调用 `materialAPI.getAll()`、`materialAPI.upload()`、`materialAPI.download()`、`materialAPI.delete()`
+- FormData 处理文件上传
+- Blob 处理文件下载
+- 文件类型图标映射
+- 文件大小格式化函数
+- 模态框组件
 
 ---
 
@@ -211,6 +238,11 @@ This document summarizes the implementation of all frontend pages in the UniAssi
 - `assignment-meta` - 作业元信息
 - `course-breadcrumb` - 面包屑导航
 - `loading-indicator` - 加载指示器
+- `materials-grid` / `material-card` - 教学资料网格和卡片
+- `material-icon` - 文件类型图标
+- `material-info` / `material-meta` / `material-actions` - 教学资料信息区块
+- `selected-file` - 选中文件显示
+- `btn-info` - 信息按钮样式
 
 ---
 
@@ -222,6 +254,7 @@ This document summarizes the implementation of all frontend pages in the UniAssi
 // 新增路由 / New Routes
 <Route path="/classes" element={<PrivateRoute><Classes /></PrivateRoute>} />
 <Route path="/class/:id" element={<PrivateRoute><ClassDetail /></PrivateRoute>} />
+<Route path="/class/:id/materials" element={<PrivateRoute><Materials /></PrivateRoute>} />
 <Route path="/notifications" element={<PrivateRoute><Notifications /></PrivateRoute>} />
 <Route path="/browse-courses" element={<PrivateRoute><BrowseCourses /></PrivateRoute>} />
 <Route path="/create-course" element={<PrivateRoute><CreateCourse /></PrivateRoute>} />
@@ -289,6 +322,16 @@ This document summarizes the implementation of all frontend pages in the UniAssi
    - [ ] 显示班级成员
    - [ ] 退出班级（学生）
    - [ ] 删除班级（教师）
+   - [ ] 查看教学资料按钮
+
+10. **教学资料**
+    - [ ] 显示所有教学资料
+    - [ ] 文件类型图标正确
+    - [ ] 下载资料（学生）
+    - [ ] 上传资料（教师）
+    - [ ] 删除资料（教师）
+    - [ ] 文件大小验证
+    - [ ] 显示上传者和时间
 
 ### 集成测试 / Integration Testing
 
@@ -303,10 +346,10 @@ This document summarizes the implementation of all frontend pages in the UniAssi
 
 | 类别 / Category | 总数 / Total | 已完成 / Completed | 完成率 / Completion Rate |
 |----------------|--------------|-------------------|-------------------------|
-| 学生端页面 | 8 | 8 | 100% |
-| 教师端页面 | 9 | 9 | 100% |
+| 学生端页面 | 9 | 9 | 100% |
+| 教师端页面 | 10 | 10 | 100% |
 | 共用页面 | 0 | 0 | N/A |
-| **总计** | **9** | **9** | **100%** |
+| **总计** | **10** | **10** | **100%** |
 
 ---
 

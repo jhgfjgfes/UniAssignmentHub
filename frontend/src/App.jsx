@@ -10,6 +10,7 @@ import Courses from './pages/Courses';
 import Assignments from './pages/Assignments';
 import Classes from './pages/Classes';
 import ClassDetail from './pages/ClassDetail';
+import Materials from './pages/Materials';
 import Notifications from './pages/Notifications';
 import BrowseCourses from './pages/BrowseCourses';
 import CreateCourse from './pages/CreateCourse';
@@ -48,6 +49,7 @@ const AppContent = () => {
         <Route path="/assignments" element={<PrivateRoute><Assignments /></PrivateRoute>} />
         <Route path="/classes" element={<PrivateRoute><Classes /></PrivateRoute>} />
         <Route path="/class/:id" element={<PrivateRoute><ClassDetail /></PrivateRoute>} />
+        <Route path="/class/:id/materials" element={<PrivateRoute><Materials /></PrivateRoute>} />
         <Route path="/notifications" element={<PrivateRoute><Notifications /></PrivateRoute>} />
         <Route path="/browse-courses" element={<PrivateRoute><BrowseCourses /></PrivateRoute>} />
         <Route path="/create-course" element={<PrivateRoute><CreateCourse /></PrivateRoute>} />

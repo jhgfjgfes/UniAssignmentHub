@@ -149,6 +149,12 @@ const Classes = () => {
                 >
                   查看详情 / View Details
                 </button>
+                <button 
+                  className="btn btn-info btn-sm"
+                  onClick={() => navigate(`/class/${cls.id}/materials`)}
+                >
+                  教学资料
+                </button>
                 {isTeacher && (
                   <button 
                     className="btn btn-danger btn-sm"

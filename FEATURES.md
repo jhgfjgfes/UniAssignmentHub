@@ -295,6 +295,29 @@ All models managed by Sequelize ORM with relationship support
 5. **我的提交** (`/submissions`) - 查看所有历史提交和成绩
 6. **班级列表** (`/classes`) - 查看已加入班级，可加入新班级
 7. **班级详情** (`/class/:id`) - 查看班级详情和成员，可退出班级
+8. **教学资料** (`/class/:id/materials`) - 查看和下载班级教学资料
+9. **通知中心** (`/notifications`) - 查看所有通知，支持筛选和标记已读
+
+### 教师端页面 / Teacher Pages
+1. **教师首页** (`/dashboard`) - 快速操作入口
+2. **我的课程** (`/courses`) - 管理自己教授的课程
+3. **创建课程** (`/create-course`) - 创建新课程
+4. **课程详情** (`/course/:id`) - 查看课程详情、选修学生、课程作业
+5. **发布作业** (`/course/:id/create-assignment`) - 为课程发布新作业
+6. **班级列表** (`/classes`) - 管理自己创建的班级
+7. **创建班级** (`/create-class`) - 创建新班级
+8. **班级详情** (`/class/:id`) - 查看班级详情和成员
+9. **教学资料** (`/class/:id/materials`) - 上传和管理班级教学资料
+10. **通知中心** (`/notifications`) - 查看所有通知
+
+### 学生端页面 / Student Pages
+1. **学生首页** (`/dashboard`) - 显示未提交作业提醒、快速操作入口
+2. **我的课程** (`/courses`) - 显示已选修课程，可退课
+3. **浏览课程** (`/browse-courses`) - 浏览所有课程并选修
+4. **作业页面** (`/assignments`) - 按课程显示作业，提交作业
+5. **我的提交** (`/submissions`) - 查看所有历史提交和成绩
+6. **班级列表** (`/classes`) - 查看已加入班级，可加入新班级
+7. **班级详情** (`/class/:id`) - 查看班级详情和成员，可退出班级
 8. **通知中心** (`/notifications`) - 查看所有通知，支持筛选和标记已读
 
 ### 教师端页面 / Teacher Pages
@@ -312,25 +335,22 @@ All models managed by Sequelize ORM with relationship support
 
 ### 建议的功能扩展 / Suggested Feature Extensions
 
-1. **教学资料管理** / **Teaching Materials Management**
-   - 后端API已实现，需要创建前端页面
-   - 功能：上传、下载、管理教学资料
-
-2. **用户体验优化** / **UX Improvements**
+1. **用户体验优化** / **UX Improvements**
    - 添加加载动画 / Add loading animations
    - 优化移动端显示 / Optimize mobile display
    - 添加文件预览功能 / Add file preview feature
 
-3. **安全增强** / **Security Enhancements**
+2. **安全增强** / **Security Enhancements**
    - 添加速率限制 / Add rate limiting
    - 增强输入验证 / Enhanced input validation
    - 实施文件扫描 / Implement file scanning
 
-4. **高级功能** / **Advanced Features**
+3. **高级功能** / **Advanced Features**
    - WebSocket实时通知 / WebSocket real-time notifications
    - 在线批注工具 / Online annotation tools
    - 数据分析仪表板 / Analytics dashboard
    - 作业统计分析 / Assignment statistics and analytics
+   - 批量操作（批量评分、批量删除） / Batch operations
 
 ## 联系和支持 / Contact and Support
 

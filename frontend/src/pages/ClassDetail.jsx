@@ -100,23 +100,31 @@ const ClassDetail = () => {
         <button className="btn btn-secondary" onClick={() => navigate('/classes')}>
           ← 返回 / Back
         </button>
-        {isTeacher && (
+        <div className="header-actions">
           <button 
-            className="btn btn-danger"
-            onClick={handleDeleteClass}
+            className="btn btn-info"
+            onClick={() => navigate(`/class/${id}/materials`)}
           >
-            删除班级
+            教学资料 / Teaching Materials
           </button>
-        )}
-        {!isTeacher && (
-          <button 
-            className="btn btn-warning"
-            onClick={handleLeaveClass}
-            disabled={leaving}
-          >
-            {leaving ? '退出中...' : '退出班级'}
-          </button>
-        )}
+          {isTeacher && (
+            <button 
+              className="btn btn-danger"
+              onClick={handleDeleteClass}
+            >
+              删除班级
+            </button>
+          )}
+          {!isTeacher && (
+            <button 
+              className="btn btn-warning"
+              onClick={handleLeaveClass}
+              disabled={leaving}
+            >
+              {leaving ? '退出中...' : '退出班级'}
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="class-detail">
