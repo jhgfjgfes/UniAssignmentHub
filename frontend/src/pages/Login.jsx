@@ -35,12 +35,13 @@ const Login = () => {
         
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label className="form-label">用户名 / Username</label>
+            <label className="form-label">学号 / Student ID</label>
             <input
               type="text"
               className="form-input"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              placeholder="请输入学号 / Enter Student ID"
               required
             />
           </div>

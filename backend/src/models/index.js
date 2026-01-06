@@ -44,6 +44,10 @@ Class.belongsToMany(User, { through: ClassMembership, foreignKey: 'classId', as:
 ClassMembership.belongsTo(User, { foreignKey: 'studentId', as: 'User' });
 ClassMembership.belongsTo(Class, { foreignKey: 'classId', as: 'Class' });
 
+// Explicitly define relationships for Enrollment to support includes
+Enrollment.belongsTo(User, { foreignKey: 'studentId', as: 'User' });
+Enrollment.belongsTo(Course, { foreignKey: 'courseId', as: 'Course' });
+
 module.exports = {
   sequelize,
   User,

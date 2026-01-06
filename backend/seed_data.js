@@ -20,22 +20,31 @@ async function seed() {
     console.log('Teacher created');
 
     // Create Students
-    const student1 = await User.create({
-      username: 'demo_student1',
-      email: 'student1@demo.com',
-      password: studentPassword,
-      role: 'student',
-      name: '李明 (Li Ming)'
-    });
+    console.log('Creating 56 demo students...');
+    const students = [];
+    
+    // Create students with IDs 231304001 to 231304056
+    for (let i = 1; i <= 56; i++) {
+        const idSuffix = i.toString().padStart(2, '0');
+        const studentId = `2313040${idSuffix}`;
+        const studentPassword = await bcrypt.hash(studentId, 10);
+        
+        students.push({
+            username: studentId,
+            email: `${studentId}@student.uni.edu`,
+            password: studentPassword,
+            role: 'student',
+            name: `学生 ${studentId}`
+        });
+    }
+    
+    // Bulk create students
+    const createdStudents = await User.bulkCreate(students);
+    console.log('56 Students created');
 
-    const student2 = await User.create({
-      username: 'demo_student2',
-      email: 'student2@demo.com',
-      password: studentPassword,
-      role: 'student',
-      name: '王芳 (Wang Fang)'
-    });
-    console.log('Students created');
+    // Keep some reference students for enrollment
+    const student1 = createdStudents[0];
+    const student2 = createdStudents[1];
 
     // Create Course
     const course = await Course.create({
