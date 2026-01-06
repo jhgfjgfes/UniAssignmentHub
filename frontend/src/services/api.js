@@ -39,7 +39,8 @@ export const courseAPI = {
   update: (id, data) => api.put(`/courses/${id}`, data),
   delete: (id) => api.delete(`/courses/${id}`),
   enroll: (courseId) => api.post('/courses/enroll', { courseId }),
-  unenroll: (courseId) => api.delete(`/courses/${courseId}/enroll`)
+  unenroll: (courseId) => api.delete(`/courses/${courseId}/enroll`),
+  addStudent: (id, data) => api.post(`/courses/${id}/students`, data),
 };
 
 // Assignment API
@@ -63,15 +64,6 @@ export const submissionAPI = {
   download: (id) => api.get(`/submissions/${id}/download`, { responseType: 'blob' })
 };
 
-// Notification API
-export const notificationAPI = {
-  getAll: () => api.get('/notifications'),
-  getUnread: () => api.get('/notifications?unreadOnly=true'),
-  getUnreadCount: () => api.get('/notifications/unread-count'),
-  markAsRead: (id) => api.put(`/notifications/${id}/read`),
-  markAllAsRead: () => api.put('/notifications/read-all'),
-  sendAnnouncement: (data) => api.post('/notifications/announcement', data)
-};
 
 // Class API
 export const classAPI = {
@@ -99,6 +91,15 @@ export const materialAPI = {
   }),
   download: (id) => api.get(`/materials/${id}/download`, { responseType: 'blob' }),
   delete: (id) => api.delete(`/materials/${id}`)
+};
+
+// Notification API
+export const notificationAPI = {
+  getNotifications: (params) => api.get('/notifications', { params }),
+  getUnreadCount: () => api.get('/notifications/unread-count'),
+  markAsRead: (id) => api.put(`/notifications/${id}/read`),
+  markAllAsRead: () => api.put('/notifications/read-all'),
+  createAnnouncement: (data) => api.post('/notifications/announcement', data)
 };
 
 export default api;

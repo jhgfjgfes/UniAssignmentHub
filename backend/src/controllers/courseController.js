@@ -206,3 +206,57 @@ exports.getAllCourses = async (req, res) => {
     res.status(500).json({ error: 'Failed to get courses' });
   }
 };
+
+exports.addStudent = async (req, res) => {
+  try {
+    const { studentId, email, username } = req.body;
+    const courseId = req.params.id;
+
+    const course = await Course.findByPk(courseId);
+    if (!course) {
+      return res.status(404).json({ error: 'Course not found' });
+    }
+
+    if (course.teacherId !== req.user.id) {
+      return res.status(403).json({ error: 'Not authorized to add students to this course' });
+    }
+
+    let student;
+    if (studentId) {
+      student = await User.findByPk(studentId);
+    } else if (email) {
+      student = await User.findOne({ where: { email } });
+    } else if (username) {
+      student = await User.findOne({ where: { username } });
+    } else {
+      return res.status(400).json({ error: 'Student ID, email or username is required' });
+    }
+
+    if (!student) {
+      return res.status(404).json({ error: 'Student not found' });
+    }
+
+    if (student.role !== 'student') {
+      return res.status(400).json({ error: 'User is not a student' });
+    }
+
+    const existingEnrollment = await Enrollment.findOne({
+      where: { studentId: student.id, courseId }
+    });
+
+    if (existingEnrollment) {
+      return res.status(400).json({ error: 'Student already enrolled in this course' });
+    }
+
+    const enrollment = await Enrollment.create({
+      studentId: student.id,
+      courseId
+    });
+
+    res.status(201).json({ message: 'Student added successfully', enrollment });
+  } catch (error) {
+    console.error('Add student error:', error);
+    res.status(500).json({ error: 'Failed to add student' });
+  }
+};
+

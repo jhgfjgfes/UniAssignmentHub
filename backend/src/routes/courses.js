@@ -9,6 +9,7 @@ router.get('/all', auth, courseController.getAllCourses);
 router.get('/:id', auth, courseController.getCourse);
 router.put('/:id', auth, isTeacher, courseController.updateCourse);
 router.delete('/:id', auth, isTeacher, courseController.deleteCourse);
+router.post('/:id/students', auth, isTeacher, courseController.addStudent);
 router.post('/enroll', auth, isStudent, courseController.enrollStudent);
 router.delete('/:courseId/enroll', auth, isStudent, courseController.unenrollStudent);
 

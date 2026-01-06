@@ -14,6 +14,7 @@ import CreateAssignment from './pages/CreateAssignment';
 import Classes from './pages/Classes';
 import CreateClass from './pages/CreateClass';
 import ClassDetails from './pages/ClassDetails';
+import Notifications from './pages/Notifications';
 import './App.css';
 
 const PrivateRoute = ({ children }) => {
@@ -45,7 +46,7 @@ const AppContent = () => {
         <Route path="/assignments" element={<PrivateRoute><Assignments /></PrivateRoute>} />
         <Route path="/classes" element={<PrivateRoute><Classes /></PrivateRoute>} />
         <Route path="/class/:id" element={<PrivateRoute><ClassDetails /></PrivateRoute>} />
-        <Route path="/notifications" element={<PrivateRoute><div className="container"><h1>通知 / Notifications</h1><div className="card"><p>功能开发中 / Feature in development</p></div></div></PrivateRoute>} />
+        <Route path="/notifications" element={<PrivateRoute><Notifications /></PrivateRoute>} />
         <Route path="/browse-courses" element={<PrivateRoute><div className="container"><h1>选课 / Browse Courses</h1><div className="card"><p>功能开发中 / Feature in development</p></div></div></PrivateRoute>} />
         <Route path="/create-course" element={<PrivateRoute><CreateCourse /></PrivateRoute>} />
         <Route path="/create-class" element={<PrivateRoute><CreateClass /></PrivateRoute>} />
